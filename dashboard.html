@@ -17,15 +17,31 @@
 </div>
 </div>
 <script>
-async function create(){
-  const r=await fetch("/create-bot",{method:"POST",
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({
-    business:business.value,color:color.value,
-    welcome:welcome.value,tone:tone.value
-  })});
-  const d=await r.json();
-  code.innerText=`<script src="http://localhost:3000/chatbox.js" data-token="${d.token}"></script>`;
+async function create() {
+  try {
+    const res = await fetch("/create-bot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        business: document.getElementById("business").value,
+        color: document.getElementById("color").value,
+        welcome: document.getElementById("welcome").value,
+        tone: document.getElementById("tone").value
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error(Server error: ${res.status});
+    }
+
+    const data = await res.json();
+    document.getElementById("code").innerText =
+      <script src="https://nudella-ai-production.up.railway.app/chatbox.js" data-token="${data.token}"></script>;
+
+  } catch (err) {
+    console.error("Error creating chatbox:", err);
+    alert("Failed to create chatbox. Check console for details.");
+  }
 }
 </script>
 </body>
