@@ -52,7 +52,13 @@ app.post("/create-bot", (req, res) => {
     `INSERT INTO chatbots (business, token, color, welcome, tone)
      VALUES (?, ?, ?, ?, ?)`,
     [business, token, color, welcome, tone],
-    () => res.json({ token })
+    function(err) {
+      if (err) {
+        console.error("DB insert error:", err);
+        return res.status(500).json({ error: "Database error" });
+      }
+      res.json({ token });
+    }
   );
 });
 
