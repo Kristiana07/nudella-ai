@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NUDELLA AI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <img src="logo.svg" height="60">
+    <p class="muted">Intelligent chat. Naturally human.</p>
+    <h1>AI Chatboxes for Businesses</h1>
+    <p>$300 one-time. No subscriptions.</p>
+    <button onclick="buy()">Get Your Chatbox</button>
+  </div>
+</div>
+<script>
+async function buy(){
+  const r=await fetch("/create-checkout",{method:"POST"});
+  location.href=(await r.json()).url;
+}
+</script>
+</body>
+</html>
