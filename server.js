@@ -1,12 +1,13 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const path = require("path");
 
-// Required for parsing JSON from frontend
+const app = express();
 app.use(express.json());
+app.use(express.static("public")); // serve index.html and dashboard.html
 
-// Stripe checkout route — must be POST
+// Stripe checkout route
 app.post("/create-checkout", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
@@ -32,9 +33,6 @@ app.post("/create-checkout", async (req, res) => {
   }
 });
 
-// Serve static files (your index.html)
-app.use(express.static("public"));
-
 // Start server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(🚀 Server running on port ${PORT}));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
