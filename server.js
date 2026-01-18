@@ -105,7 +105,10 @@ app.post("/admin/toggle", (req, res) => {
     () => res.json({ success: true })
   );
 });
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () =>
-  console.log("🚀 NUDELLA AI live at http://localhost:3000")
+app.listen(PORT, () => {
+  console.log(`🚀 NUDELLA AI live at http://localhost:${PORT}`);
+});
+
 );
