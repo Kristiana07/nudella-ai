@@ -1,17 +1,13 @@
-nudella-ai/
+nudella-ai/           ← ROOT FOLDER
 │
-├── server.js
-├── stripe.js
-├── database.db
-├── .env
-├── package.json
+├── server.js         ← Node.js backend
+├── package.json      ← Node dependencies
+├── .env              ← Environment variables (local only)
+├── database.db       ← Optional if using SQLite
+├── .gitignore        ← Ignore node_modules, .env
 │
-└── public/
-    ├── index.html
-    ├── dashboard.html
-    ├── admin.html
-    ├── privacy.html
-    ├── terms.html
-    ├── chatbox.js
-    ├── styles.css
-    └── logo.svg
+├── public/           ← Frontend files
+│   ├── index.html
+│   ├── dashboard.html (optional)
+│   ├── styles.css
+│   └── logo.svg
