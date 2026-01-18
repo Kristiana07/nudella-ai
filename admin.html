@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="styles.css"></head>
+<body>
+<div class="container"><div class="card">
+<h1>Admin</h1><ul id="list"></ul>
+</div></div>
+<script>
+fetch("/admin/bots").then(r=>r.json()).then(d=>{
+d.forEach(b=>{
+list.innerHTML+=`<li>${b.business}
+<button onclick="toggle('${b.token}')">${b.active?'Disable':'Enable'}</button></li>`;
+});
+});
+function toggle(t){
+fetch("/admin/toggle",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({token:t})}).then(()=>location.reload());
+}
+</script>
+</body>
+</html>
