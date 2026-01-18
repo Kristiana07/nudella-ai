@@ -1,0 +1,5 @@
+<svg width="260" height="60" xmlns="http://www.w3.org/2000/svg">
+  <text x="0" y="40" font-size="36" letter-spacing="6" fill="#3A3A3A">NUDELLA</text>
+  <line x1="0" y1="48" x2="210" y2="48" stroke="#C7B7A3" stroke-width="2"/>
+  <text x="215" y="40" font-size="14" fill="#8A817C">AI</text>
+</svg>
