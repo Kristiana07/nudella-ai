@@ -14,15 +14,17 @@
     <button onclick="buy()">Get Your Chatbox</button>
   </div>
 </div>
+
 <script>
 async function buy() {
   try {
     const res = await fetch("/create-checkout", { method: "POST" });
-    const data = await res.json(); // this was failing because 405 returned HTML
+    if (!res.ok) throw new Error("Server returned " + res.status);
+    const data = await res.json();
     window.location.href = data.url;
   } catch (e) {
     console.error("Checkout error:", e);
-    alert("Payment error. Check console.");
+    alert("Payment error. Check console for details.");
   }
 }
 </script>
