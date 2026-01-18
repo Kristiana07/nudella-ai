@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head><link rel="stylesheet" href="styles.css"></head>
+<head>
+  <title>NUDELLA AI Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
 <div class="container">
-<div class="card">
-<img src="logo.svg" height="50">
-<input id="business" placeholder="Business Name">
-<input id="color" placeholder="Brand Color (#hex)">
-<input id="welcome" placeholder="Welcome Message">
-<select id="tone">
-  <option>professional</option>
-  <option>friendly</option>
-</select>
-<button onclick="create()">Create Chatbox</button>
-<pre id="code"></pre>
+  <div class="card">
+    <img src="logo.svg" height="50">
+    <h2>Create Your Chatbox</h2>
+
+    <input id="business" placeholder="Business Name">
+    <input id="color" placeholder="Brand Color (#hex)">
+    <input id="welcome" placeholder="Welcome Message">
+    <select id="tone">
+      <option value="professional">Professional</option>
+      <option value="friendly">Friendly</option>
+    </select>
+
+    <button onclick="create()">Create Chatbox</button>
+    <pre id="code"></pre>
+  </div>
 </div>
-</div>
+
 <script>
 async function create() {
+  const business = document.getElementById("business").value;
+  const color = document.getElementById("color").value;
+  const welcome = document.getElementById("welcome").value;
+  const tone = document.getElementById("tone").value;
+  const codeEl = document.getElementById("code");
+
   try {
     const res = await fetch("/create-bot", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        business: document.getElementById("business").value,
-        color: document.getElementById("color").value,
-        welcome: document.getElementById("welcome").value,
-        tone: document.getElementById("tone").value
-      })
+      body: JSON.stringify({ business, color, welcome, tone })
     });
 
     if (!res.ok) {
-      throw new Error(Server error: ${res.status});
+      const err = await res.json();
+      codeEl.innerText = "Error: " + (err.error || res.status);
+      return;
     }
 
     const data = await res.json();
-    document.getElementById("code").innerText =
-      <script src="https://nudella-ai-production.up.railway.app/chatbox.js" data-token="${data.token}"></script>;
+    codeEl.innerText = <script src="https://nudella-ai-production.up.railway.app/chatbox.js" data-token="${data.token}"></script>;
+    alert("Chatbox created! Copy the embed code below.");
 
-  } catch (err) {
-    console.error("Error creating chatbox:", err);
-    alert("Failed to create chatbox. Check console for details.");
+  } catch (e) {
+    console.error("Create Chatbox error:", e);
+    codeEl.innerText = "Network error. Check console.";
   }
 }
 </script>
