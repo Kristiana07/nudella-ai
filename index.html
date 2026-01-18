@@ -21,7 +21,7 @@ async function buy() {
     const res = await fetch("/create-checkout", { method: "POST" });
     if (!res.ok) throw new Error("Server returned " + res.status);
     const data = await res.json();
-    window.location.href = data.url;
+    window.location.href = data.url; // redirect to Stripe checkout
   } catch (e) {
     console.error("Checkout error:", e);
     alert("Payment error. Check console for details.");
