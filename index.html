@@ -14,10 +14,17 @@
     <button onclick="buy()">Get Your Chatbox</button>
   </div>
 </div>
+
 <script>
-async function buy(){
-  const r=await fetch("/create-checkout",{method:"POST"});
-  location.href=(await r.json()).url;
+async function buy() {
+  try {
+    const res = await fetch("/create-checkout", { method: "POST" });
+    const data = await res.json();
+    window.location.href = data.url;
+  } catch (e) {
+    console.error("Checkout error:", e);
+    alert("Payment error. Check console.");
+  }
 }
 </script>
 </body>
