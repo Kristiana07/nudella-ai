@@ -37,8 +37,8 @@ app.post("/create-checkout", async (req, res) => {
       quantity: 1
     }],
     mode: "payment",
-    success_url: "http://localhost:3000/dashboard.html",
-    cancel_url: "http://localhost:3000"
+    success_url: "https://nudella-ai-production.up.railway.app/dashboard.html",
+    cancel_url: "https://nudella-ai-production.up.railway.app/"
   });
   res.json({ url: session.url });
 });
