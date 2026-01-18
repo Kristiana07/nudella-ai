@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="styles.css"></head>
+<body>
+<div class="container">
+<div class="card">
+<img src="logo.svg" height="50">
+<input id="business" placeholder="Business Name">
+<input id="color" placeholder="Brand Color (#hex)">
+<input id="welcome" placeholder="Welcome Message">
+<select id="tone">
+  <option>professional</option>
+  <option>friendly</option>
+</select>
+<button onclick="create()">Create Chatbox</button>
+<pre id="code"></pre>
+</div>
+</div>
+<script>
+async function create(){
+  const r=await fetch("/create-bot",{method:"POST",
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({
+    business:business.value,color:color.value,
+    welcome:welcome.value,tone:tone.value
+  })});
+  const d=await r.json();
+  code.innerText=`<script src="http://localhost:3000/chatbox.js" data-token="${d.token}"></script>`;
+}
+</script>
+</body>
+</html>
