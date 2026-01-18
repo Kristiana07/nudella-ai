@@ -46,7 +46,7 @@ app.post("/create-checkout", async (req, res) => {
     });
     res.json({ url: session.url });
   } catch (e) {
-    console.error(e);
+    console.error("Stripe error:", e);
     res.status(500).json({ error: "Stripe error" });
   }
 });
